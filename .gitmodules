@@ -1,0 +1,6 @@
+[submodule "tabulate"]
+	path = tabulate
+	url = https://github.com/p-ranav/tabulate.git
+[submodule "math-parser-benchmark-project"]
+	path = math-parser-benchmark-project
+	url = https://github.com/ArashPartow/math-parser-benchmark-project.git

@@ -1,5 +1,5 @@
 /**
- * @file metodos_numericos.h
+ * @file fermi.h
  * @author Tanil Izquierdo Cordova.
  * @brief Libreria para el calculo de metodos numericos iterativos.
  * @version 1
@@ -9,14 +9,14 @@
  * 
  */
 
-#ifndef _FERMI_INCLUDED_
-#define _FERMI_INCLUDED_
-#include "atmsp.h"
+#ifndef _FERMI_H_INCLUDED_
+#define _FERMI_H_INCLUDED_
+#include <atmsp/atmsp.h>
 
-// Valor utilizado por estimadoras Texas Instruments para derivar por medio del metodo del cociente de diferencia simetrica.
+/// Valor utilizado por estimadoras Texas Instruments para derivar por medio del metodo del cociente de diferencia simetrica.
 #define H 0.001
 
-// Numero de divisiones de la integral
+/// Numero de divisiones de la integral
 #define PASO_INTEGRAL 10000000
 
 /**
@@ -44,7 +44,7 @@ double derivar(double (* f)(double), double x, int orden, double h){
  * @param h Cantidad pequeña necesaria para poder realizar la operacion de cociente de diferencia simetrica.
  * @return Aproximacion de la derivada dada f(x): (f^[orden](x)). 
  */
-double derivar(std::string expresion, double x, int orden, double h) {
+double derivar(const std::string &expresion, double x, int orden, double h) {
     ATMSB <double> f;
     ATMSP <double> parser;
     parser.parse(f, expresion, "x");
@@ -74,12 +74,10 @@ double derivar(std::string expresion, double x, int orden, double h) {
  */
 double derivar(double (* f)(double, double), double x, double y, char variable, double h){
     double resultado = 0;
-    if (variable == 'x') {
-        resultado = (f(x+h, y) - f(x-h, y)) / (2.0*h);
-    }
-    else if (variable == 'y') {
-        resultado = (f(x, y+h) - f(x, y-h)) / (2.0*h);
-    }
+
+    if (variable == 'x') resultado = (f(x+h, y) - f(x-h, y)) / (2.0*h);
+    else if (variable == 'y') resultado = (f(x, y+h) - f(x, y-h)) / (2.0*h);
+
     return resultado;
 }
 
@@ -93,7 +91,7 @@ double derivar(double (* f)(double, double), double x, double y, char variable, 
  * @param h Cantidad pequeña necesaria para poder realizar la operacion de cociente de diferencia simetrica.
  * @return Aproximacion de la derivada dada f(x, y): (f^(x, y)). 
  */
-double derivar(std::string expresion, double x, double y, char variable, double h){
+double derivar(const std::string &expresion, double x, double y, char variable, double h){
     double resultado = 0;
     ATMSB <double> f;
     ATMSP <double> parser;
